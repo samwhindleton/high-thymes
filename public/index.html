@@ -2,40 +2,52 @@
 <html lang="en" ng-app="MyApp">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>High Thymes | A Place To Bake</title>
+    <!-- angular cdn  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
-    <!-- ...  -->
+    <!-- main js  -->
     <script src="/js/app.js"></script>
+    <!-- main css  -->
+    <link rel="stylesheet" href="/css/main.css">
   </head>
+
   <body ng-controller="MainController as ctrl">
-    <!-- {{2 + 2}}
-    {{ctrl.test}} -->
+    <div class="continaer">
+      <!-- logo/brand -->
+      <div class="row logo">
+        <img src="/assets/logo.png" alt="High Thymes Logo">
+        <h1>High Thymes</h1>
+        <h2>A Place to Bake</h2>
+      </div>
+      <!-- create/add recipe -->
+      <div class="row">
+        <!-- create recipe form -->
+        <form ng-submit="ctrl.createThymes()">
+          <!-- name -->
+          <input ng-model="ctrl.createForm.name" type="text" placeholder="recipe name"><br>
+          <!-- description -->
+          <input ng-model="ctrl.createForm.description" type="text" placeholder="recipe description"><br>
+          <!-- image -->
+          <input ng-model="ctrl.createForm.image" type="url" placeholder="recipe image url"><br>
+          <!-- ingredients -->
+          <input ng-model="ctrl.createForm.ingredients" type="text" placeholder="recipe ingredients"><br>
+          <!-- instructions -->
+          <input ng-model="ctrl.createForm.instructions" type="text" placeholder="recipe instructions"><br>
+          <!-- indica -->
+          indica: <input ng-model="ctrl.createForm.indica" type="checkbox">
+          <!-- sativa -->
+          sativa: <input ng-model="ctrl.createForm.sativa" type="checkbox"><br>
+          <!-- submit button -->
+          <button class="button-primary" type="submit">bake it</button>
+        </form>
+      </div>
 
-    <!--
-    logo
-    title: High Thymes
-    subheader: A place to bake
+      <!-- show recipes -->
+      <div class="row">
 
-    form:
-      name: String,
-      description: String,
-      image: String,
-      instructions: String,
-      ingredients: String,
-      indica: Boolean,
-      sativa: Boolean
-      NOTE: add likes: number, to models
+      </div>
 
-    Show(all):
-      Image
-      name, likes, edit, delete
-        Span on click:
-          show all
-        Modal for edit:
-          show all
-
-      show and modal black or gray 50% transparent
-    -->
+    </div>
 
   </body>
 </html>
