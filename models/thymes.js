@@ -8,7 +8,8 @@ const thymesSchema = Schema({
     instructions: String,
     ingredients: String,
     indica: Boolean,
-    sativa: Boolean
+    sativa: Boolean,
+    likes: {type: Number, default: 0}
 });
 
 const Thymes = mongoose.model('Thymes', thymesSchema);
