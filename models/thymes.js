@@ -7,7 +7,7 @@ const thymesSchema = Schema({
     image: String,
     instructions: String,
     ingredients: String,
-    indica: Boolean
+    indica: Boolean,
     sativa: Boolean
 });
 
