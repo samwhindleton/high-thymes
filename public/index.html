@@ -47,21 +47,30 @@
         <hr>
         <form ng-submit="ctrl.createThymes()">
           <!-- name -->
-          <input ng-model="ctrl.createForm.name" type="text" placeholder="recipe name" required><br>
-          <!-- description -->
-          <input ng-model="ctrl.createForm.description" type="text" placeholder="recipe description" required><br>
+          <label for="name">recipe name</label>
+          <input class="u-full-width" ng-model="ctrl.createForm.name" type="text" placeholder="recipe name" required>
           <!-- image -->
-          <input ng-model="ctrl.createForm.image" type="url" placeholder="recipe image url" required><br>
+          <label for="image">image url</label>
+          <input class="u-full-width" ng-model="ctrl.createForm.image" type="url" placeholder="recipe image url" required>
+          <!-- description -->
+          <label for="description">description</label>
+          <textarea class="u-full-width" ng-model="ctrl.createForm.description" type="text" placeholder="recipe description" required></textarea>
           <!-- ingredients -->
-          <input ng-model="ctrl.createForm.ingredients" type="text" placeholder="recipe ingredients" required><br>
+          <label for="ingredients">ingredients</label>
+          <textarea class="u-full-width" ng-model="ctrl.createForm.ingredients" type="text" placeholder="recipe ingredients" required></textarea>
           <!-- instructions -->
-          <input ng-model="ctrl.createForm.instructions" type="text" placeholder="recipe instructions" required><br>
-          <!-- indica -->
-          indica: <input ng-model="ctrl.createForm.indica" type="checkbox">
-          <!-- sativa -->
-          sativa: <input ng-model="ctrl.createForm.sativa" type="checkbox"><br>
+          <label for="instructions">instructions</label>
+          <textarea class="u-full-width" ng-model="ctrl.createForm.instructions" type="text" placeholder="recipe instructions" required></textarea>
+          <div class="checkbox">
+            <!-- indica -->
+            <label for="indica">indica</label>
+            <input ng-model="ctrl.createForm.indica" type="checkbox">
+            <!-- sativa -->
+            <label for="instructions">sativa</label>
+            <input ng-model="ctrl.createForm.sativa" type="checkbox">
+          </div>
           <!-- submit button -->
-          <button class="button-primary" type="submit">submit</button>
+          <button class="u-full-width button-primary" type="submit">submit</button>
         </form>
       </div>
 
@@ -73,25 +82,61 @@
         <ul>
           <li ng-repeat="thymes in ctrl.thymes">
             {{thymes.name}}
-
-            <!-- like button -->
             <span>
-              {{thymes.likes}}
-              <a ng-click="ctrl.updateLikes(thymes)">
-                <i class="fas fa-leaf"></i>
+              <a ng-click="(ctrl.indexOfShow === $index) ? ctrl.indexOfShow = null : ctrl.indexOfShow = $index">
+                <i class="fas fa-eye"></i>
+              </a>
+              <!-- likes, like button -->
+              <span>
+                {{thymes.likes}}
+                <a ng-click="ctrl.updateLikes(thymes)">
+                  <i class="fas fa-leaf"></i>
+                </a>
+              </span>
+              <!-- edit button
+              when clicked, only show edit form of selected recipe -->
+              <a ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index">
+                <i class="fas fa-edit"></i>
+              </a>
+              <!-- delete button -->
+              <a ng-click="ctrl.deleteThymes(thymes._id)">
+                <i class="fas fa-trash-alt"></i>
               </a>
             </span>
 
-            <!-- edit button
-            when clicked, only show edit form of selected recipe -->
-            <a ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index">
-              <i class="fas fa-edit"></i>
-            </a>
-
-            <!-- delete button -->
-            <a ng-click="ctrl.deleteThymes(thymes._id)">
-              <i class="fas fa-trash-alt"></i>
-            </a>
+            <!-- view/show section
+            hidden until view button is clicked -->
+            <div class="row edit show">
+              <!-- view/show form -->
+              <div ng-if="$index === ctrl.indexOfShow" ng-submit="ctrl.updateThyme(thymes)">
+                <!-- name -->
+                <label for="name">recipe name</label>
+                <p>{{thymes.name}}</p>
+                <!-- image -->
+                <label for="image">image</label>
+                <img ng-src="{{thymes.image}}" alt="image of {{thymes.name}}">
+                <!-- description -->
+                <label for="description">description</label>
+                <p>{{thymes.description}}</p>
+                <!-- ingredients -->
+                <label for="ingredients">ingredients</label>
+                <p>{{thymes.ingredients}}</p>
+                <!-- instructions -->
+                <label for="instructions">instructions</label>
+                <p>{{thymes.instructions}}</p>
+                <div class="checkbox">
+                  <!-- indica -->
+                  <label for="indica">indica</label>
+                  <input ng-model="thymes.indica" type="checkbox" disabled>
+                  <!-- sativa -->
+                  <label for="instructions">sativa</label>
+                  <input ng-model="thymes.sativa" type="checkbox" disabled>
+                </div>
+                <!-- close/collapse button
+                closes view/show container when selected -->
+                <button class="u-full-width button-primary" ng-click="(ctrl.indexOfShow === $index) ? ctrl.indexOfShow = null : ctrl.indexOfShow = $index">close</button>
+              </div>
+            </div> <!-- end of view/show section -->
 
             <!-- edit section
             hidden until edit button is clicked -->
@@ -99,29 +144,31 @@
               <!-- edit recipe form -->
               <form ng-if="$index === ctrl.indexOfEditFormToShow" ng-submit="ctrl.updateThyme(thymes)">
                 <!-- name -->
-                <label for="name">name</label>
-                <input type="text" ng-model="thymes.name">
+                <label for="name">recipe name</label>
+                <input class="u-full-width" type="text" ng-model="thymes.name">
+                <!-- image -->
+                <label for="image">image url</label>
+                <input class="u-full-width" type="url" ng-model="thymes.image">
                 <!-- description -->
                 <label for="description">description</label>
-                <textarea type="text" ng-model="thymes.description"></textarea>
-                <!-- image -->
-                <label for="image">image</label>
-                <input type="url" ng-model="thymes.image">
+                <textarea class="u-full-width" ng-model="thymes.description"></textarea>
                 <!-- ingredients -->
                 <label for="ingredients">ingredients</label>
                 <textarea class="u-full-width" ng-model="thymes.ingredients"></textarea>
                 <!-- instructions -->
                 <label for="instructions">instructions</label>
                 <textarea class="u-full-width" ng-model="thymes.instructions"></textarea>
-                <!-- indica -->
-                <label for="indica">indica</label>
-                <input ng-model="thymes.indica" type="checkbox">
-                <!-- sativa -->
-                <label for="instructions">sativa</label>
-                <input ng-model="thymes.sativa" type="checkbox">
+                <div class="checkbox">
+                  <!-- indica -->
+                  <label for="indica">indica</label>
+                  <input ng-model="thymes.indica" type="checkbox">
+                  <!-- sativa -->
+                  <label for="instructions">sativa</label>
+                  <input ng-model="thymes.sativa" type="checkbox">
+                </div>
                 <!-- submit changes button
                 closes edit container when selected -->
-                <button ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index" class="button-primary" type="submit">submit edits</button>
+                <button class="u-full-width button-primary" ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index" type="submit">submit edits</button>
               </form>
             </div> <!-- end of edit section -->
 
