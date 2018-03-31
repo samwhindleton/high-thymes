@@ -8,6 +8,8 @@ app.controller('MainController', ['$http', function($http) {
   this.createForm = {};
   // holds data recived from getThymes function
   this.thymes = [];
+  // show index show/hide
+  this.indexOfShow = null;
 
   // create function
   this.createThymes = () => {

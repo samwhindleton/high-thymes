@@ -47,16 +47,12 @@ a, a:hover {
 }
 
 hr {
-  /* height: 0.1vmin; */
-  width: 60vw;
+  width: 7vw;
   border-color: var(--slate);
   margin: 0;
   margin-bottom: 5vmin;
 }
 
-hr:nth-child(2) {
-  border-color: var(--cookbook);
-}
 ul {
   list-style: none;
   margin: 0;
@@ -64,6 +60,14 @@ ul {
 
 li {
   margin: 0;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.button-primary {
+  margin-top: 2vmin;
 }
 
 .continaer {
@@ -115,6 +119,14 @@ li {
   font-size: 2.3vmin;
   margin: 0.2vmin;
   padding: 2.7vmin 2vmin;
+  transition: 600ms ease-out;
+}
+
+.nav > ul > li > a:hover {
+  background: var(--cookbook);
+  border: 1px solid white;
+  color: var(--slate);
+  transition: 400ms ease-in;
 }
 
 /* logo/brand
@@ -148,11 +160,22 @@ li {
   color: var(--cookbook);
   font-size: 11vmin;
   font-weight: normal;
+  margin-bottom: 10vh;
 }
 /* create
 -------------------- */
 .create {
   background: rgba(19, 78, 94, 0.17);
+}
+
+.create > h2 {
+  margin-top: 10vh;
+}
+
+.create > form {
+  max-width: 60vw;
+  min-width: 60vw;
+  margin-bottom: 10vh;
 }
 
 
@@ -162,10 +185,19 @@ li {
   background: rgba(113, 179, 128, 0.23);
 }
 
+.recipes > h2 {
+  margin-top: 10vh;
+}
+
 .recipes > ul {
+  min-width: 60vw;
   max-width: 60vw;
+  margin-bottom: 10vh;
 }
 .recipes > ul > li {
+  /* align-items: center;
+  display: flex;
+  justify-content: space-between; */
   color: var(--cookbook);
   padding: 5vmin;
 }
@@ -182,13 +214,39 @@ li {
 }
 
 .recipes > ul > li > span {
-  margin-left: 5vmin;
+  float: right;
+}
+
+.recipes > ul > li > span > a, .recipes > ul > li > span > span {
+  margin-left: 2vmin;
+}
+
+.edit > form, .show > div {
+  margin-top: 5vmin;
+}
+
+.edit > div > p, .edit > div > img {
+  padding: 6px 10px;
+}
+
+.edit > div > img {
+  max-width: 95%;
+}
+
+.checkbox {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* about
 -------------------- */
+.about > h3 {
+  margin-top: 10vh;
+}
 .about > p {
   max-width: 60vw;
+  margin-bottom: 10vh;
   text-align: justify;
 }
 
@@ -199,7 +257,17 @@ li {
   justify-content: flex-end;
   color: var(--cookbook);
   background: var(--slate);
-  padding-bottom: 3vmin;
+}
+
+.contact > h4 {
+  margin-top: 10vh;
+}
+
+.contact > hr {
+  border-color: var(--cookbook);
+}
+.contact > ul {
+  margin-bottom: 10vh;
 }
 
 .contact > ul, .contact > ul > a {
