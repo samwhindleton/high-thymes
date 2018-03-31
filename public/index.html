@@ -2,6 +2,7 @@
 <html lang="en" ng-app="MyApp">
   <head>
     <meta charset="utf-8">
+    <!-- title -->
     <title>High Thymes | A Place To Bake</title>
     <!-- angular cdn  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" charset="utf-8"></script>
@@ -9,42 +10,179 @@
     <script src="/js/app.js"></script>
     <!-- main css  -->
     <link rel="stylesheet" href="/css/main.css">
+    <!-- font awesome -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
   </head>
 
   <body ng-controller="MainController as ctrl">
-    <div class="continaer">
+    <!-- navigation -->
+    <div class="nav">
+      <ul class="nav-left">
+        <li><a href="#home">home</a></li>
+        <li><a href="#create">create</a></li>
+        <li><a href="#recipes">recipes</a></li>
+        <li><a href="#about">about</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
+
+      <ul class="nav-right">
+        <li><a href="#">sign up</a></li>
+        <li><a href="#">log in</a></li>
+      </ul>
+    </div>
+
+    <!-- main container -->
+    <div id="home" class="continaer">
       <!-- logo/brand -->
       <div class="row logo">
         <img src="/assets/logo.png" alt="High Thymes Logo">
         <h1>High Thymes</h1>
-        <h2>A Place to Bake</h2>
+        <h2>a place to bake</h2>
       </div>
+
       <!-- create/add recipe -->
-      <div class="row">
+      <div id="create" class="row create">
         <!-- create recipe form -->
+        <h2>create</h2>
+        <hr>
         <form ng-submit="ctrl.createThymes()">
           <!-- name -->
-          <input ng-model="ctrl.createForm.name" type="text" placeholder="recipe name"><br>
+          <input ng-model="ctrl.createForm.name" type="text" placeholder="recipe name" required><br>
           <!-- description -->
-          <input ng-model="ctrl.createForm.description" type="text" placeholder="recipe description"><br>
+          <input ng-model="ctrl.createForm.description" type="text" placeholder="recipe description" required><br>
           <!-- image -->
-          <input ng-model="ctrl.createForm.image" type="url" placeholder="recipe image url"><br>
+          <input ng-model="ctrl.createForm.image" type="url" placeholder="recipe image url" required><br>
           <!-- ingredients -->
-          <input ng-model="ctrl.createForm.ingredients" type="text" placeholder="recipe ingredients"><br>
+          <input ng-model="ctrl.createForm.ingredients" type="text" placeholder="recipe ingredients" required><br>
           <!-- instructions -->
-          <input ng-model="ctrl.createForm.instructions" type="text" placeholder="recipe instructions"><br>
+          <input ng-model="ctrl.createForm.instructions" type="text" placeholder="recipe instructions" required><br>
           <!-- indica -->
           indica: <input ng-model="ctrl.createForm.indica" type="checkbox">
           <!-- sativa -->
           sativa: <input ng-model="ctrl.createForm.sativa" type="checkbox"><br>
           <!-- submit button -->
-          <button class="button-primary" type="submit">bake it</button>
+          <button class="button-primary" type="submit">submit</button>
         </form>
       </div>
 
-      <!-- show recipes -->
-      <div class="row">
+      <!-- show/edit recipes -->
+      <div id="recipes" class="row recipes">
+        <h2>all recipes</h2>
+        <hr>
+        <!-- unordered list of recipes by most recent -->
+        <ul>
+          <li ng-repeat="thymes in ctrl.thymes">
+            {{thymes.name}}
 
+            <!-- like button -->
+            <span>
+              {{thymes.likes}}
+              <a ng-click="ctrl.updateLikes(thymes)">
+                <i class="fas fa-leaf"></i>
+              </a>
+            </span>
+
+            <!-- edit button
+            when clicked, only show edit form of selected recipe -->
+            <a ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index">
+              <i class="fas fa-edit"></i>
+            </a>
+
+            <!-- delete button -->
+            <a ng-click="ctrl.deleteThymes(thymes._id)">
+              <i class="fas fa-trash-alt"></i>
+            </a>
+
+            <!-- edit section
+            hidden until edit button is clicked -->
+            <div class="row edit" sf-form="theForm" sf-model="model">
+              <!-- edit recipe form -->
+              <form ng-if="$index === ctrl.indexOfEditFormToShow" ng-submit="ctrl.updateThyme(thymes)">
+                <!-- name -->
+                <label for="name">name</label>
+                <input type="text" ng-model="thymes.name">
+                <!-- description -->
+                <label for="description">description</label>
+                <textarea type="text" ng-model="thymes.description"></textarea>
+                <!-- image -->
+                <label for="image">image</label>
+                <input type="url" ng-model="thymes.image">
+                <!-- ingredients -->
+                <label for="ingredients">ingredients</label>
+                <textarea class="u-full-width" ng-model="thymes.ingredients"></textarea>
+                <!-- instructions -->
+                <label for="instructions">instructions</label>
+                <textarea class="u-full-width" ng-model="thymes.instructions"></textarea>
+                <!-- indica -->
+                <label for="indica">indica</label>
+                <input ng-model="thymes.indica" type="checkbox">
+                <!-- sativa -->
+                <label for="instructions">sativa</label>
+                <input ng-model="thymes.sativa" type="checkbox">
+                <!-- submit changes button
+                closes edit container when selected -->
+                <button ng-click="(ctrl.indexOfEditFormToShow === $index) ? ctrl.indexOfEditFormToShow = null : ctrl.indexOfEditFormToShow = $index" class="button-primary" type="submit">submit edits</button>
+              </form>
+            </div> <!-- end of edit section -->
+
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- about -->
+      <div id="about" class="row about">
+        <h3>about high thyme</h3>
+        <hr>
+        <p>
+          Lorem ipsum dolor sit amet, cu ius vitae mollis discere. Dicta viris ex vix. Id sea dicam semper latine. An eum consul facilisis molestiae, in nec quando minimum. Ad abhorreant liberavisse sed.
+        </p>
+
+        <p>
+          His viris timeam sanctus no, natum legere sensibus vis ei. Cibo aeterno sea ut, id qui mucius inermis. Mea lucilius recteque ullamcorper no. Eum esse commodo ne. Vim ut idque labores, elit veritus comprehensam cu usu. Ne prompta epicuri his, nostrum abhorreant eos ne, albucius insolens mediocrem cu sit.
+        </p>
+
+        <p>
+          Purto inermis ocurreret te cum, eum ei numquam accusamus. Adhuc veniam cum no, cum tractatos disputando ei. Mea sint exerci ut, te sea ornatus assueverit, his nibh mazim te. Eu nec adhuc soluta interesset.
+        </p>
+      </div>
+
+      <!-- footer -->
+      <div id="contact" class="row contact">
+        <h4>contact us</h4>
+        <hr>
+        <ul>
+          <!-- github -->
+          <li>
+            <a href="#">
+              <i class="fab fa-github-alt"></i>
+            </a>
+          </li>
+          <!-- linkedin -->
+          <li>
+            <a href="#">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </li>
+          <!-- twitter -->
+          <li>
+            <a href="#">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <!-- youtube -->
+          <li>
+            <a href="#">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+          <!-- email -->
+          <li>
+            <a href="#">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        </ul>
       </div>
 
     </div>
